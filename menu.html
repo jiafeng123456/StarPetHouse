@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="layui-v2.5.6/css/layui.css"
+          media="all">
+</head>
+<body>
+<div>
+    <div class="layui-row layui-bg-blue">
+        <div class="layui-col-xs12 layui-col-md2">
+            <img src="image/touxiang.jpg" alt="">
+        </div>
+        <div class="layui-col-xs12 layui-col-md8">
+            <ul class="layui-nav layui-bg-blue">
+                <li class="layui-nav-item layui-this"><a
+                        href="main.html" target="content">首页</a></li>
+                <li class="layui-nav-item"><a href="main.html"
+                                              target="content">寻宠启示</a>
+                </li>
+                <li class="layui-nav-item"><a href="login.html"
+                                              target="content">宠物寄养</a>
+                </li>
+                <li class="layui-nav-item"><a href="register.html"
+                                              target="content">宠物领养</a>
+                </li>
+                <li class="layui-nav-item"><a href="main.html"
+                                              target="content">宠物售卖</a>
+                </li>
+                <li class="layui-nav-item"><a href="main.html"
+                                              target="content">社区</a>
+                </li>
+                <li class="layui-nav-item"><a href="main.html"
+                                              target="content">意见建议</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="layui-col-xs12 layui-col-md2">
+            <ul class="layui-nav layui-bg-blue">
+                <li class="layui-nav-item"><a href="main.html"
+                                              target="content">个人中心</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="layui-v2.5.6/layui.js" charset="utf-8"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script>
+    layui.use('element', function () {
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+        //监听导航点击
+        element.on('nav(demo)', function (elem) {
+            //console.log(elem)
+            alert(elem);
+            layer.msg(elem.text());
+        });
+    });
+
+</script>
