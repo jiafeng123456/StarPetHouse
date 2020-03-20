@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/layui-v2.5.6/css/layui.css">
+    <script type="text/javascript" src="/layui-v2.5.6/layui.js"></script>
+    <script src="/static/js/lib/jquery.js"></script>
+    <script src="/static/js/lib/jquery-ui.min.js"></script>
+    <script src="/static/js/common.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+<div>
+    <script id="userList" type="text/html">
+        {{#  layui.each(d.userList, function(index, item){ }}
+        <span>{{ item.user_name }}</span>
+        {{#  }); }}
+        {{#  if(d.userList.length === 0){ }}
+        无数据
+        {{#  } }}
+    </script>
+    <div id="view"></div>
+    <div id="demo1"></div>
+</div>
+
+<script>
+layui.use(['laytpl','laypage', 'layer'], function(){
+    // var $ = layui.jquery;
+    var laytpl = layui.laytpl;
+    debugger
+    var laypage = layui.laypage
+    ,layer = layui.layer;
+    //完整功能
+    
+    laypage.render({
+        elem: 'demo1'
+        ,count: 100 //数据总数，从服务端得到
+        ,layout: ['count', 'prev', 'page', 'next', 'skip']
+        ,jump: function(obj, first){
+            //obj包含了当前分页的所有参数，比如：
+            // alert(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+            // alert(obj.limit); //得到每页显示的条数
+            queryData(obj.curr)
+        }
+    });
+
+    function queryData(page_num) {
+        $.ajax({
+            type: 'POST',
+            data:{page_num:page_num},
+            url: 'http://127.0.0.1:8081/hello',
+            success: function (data) {
+            var getTpl = userList.innerHTML,
+                view = document.getElementById('view');
+                laytpl(getTpl).render(data, function(html) {
+                   view.innerHTML = html;
+                });
+            },
+            error:function(){
+            
+             }
+        });
+    }
+
+    function getTotal(){
+
+    }        
+});
+
+
+</script>
+
+
+</body>
+</html>

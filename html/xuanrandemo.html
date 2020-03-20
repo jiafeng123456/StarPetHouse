@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="../layui-v2.5.6/css/layui.css">
+  <script type="text/javascript" src="../layui-v2.5.6/layui.js"></script>
+  <script src="../static/js/lib/jquery.js"></script>
+  <script src="../static/js/lib/jquery-ui.js"></script>
+  <script src="../static/js/lib/jquery-jtemplates.js"></script>
+  <script src="../static/js/lib/plugins.js"></script>
+  <script src="../static/js/common.js"></script>
+  <script src="../static/js/lib/jquery-ui-timepicker-addon.js"></script>
+  <script src="../static/js/lib/all.js"></script>
+  <script src="../static/js/lib/comm.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+<!-- 模板内容 -->
+<textarea id="template" style="display:none">
+  <strong>{$T.name} : {$T.list_id}</strong>
+    <table>
+      <tr>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>邮箱</th>
+      </tr>
+      {#foreach $T.table as record}
+      <tr>
+        <td>{$T.record.id}</td>
+        <td>{$T.record.name}</td>
+        <td>{$T.record.age}</td>
+        <td>{$T.record.mail}</td> </tr>
+      {#/for}
+    </table>
+</textarea>
+<!-- 输出元素 -->
+<div id="result1" ></div>
+
+
+<script>
+    $(document).ready(function() {
+        //初始化JSON数据
+        var data = {
+            name: '用户列表',
+            list_id: '编号89757',
+            table: [
+                {id: 1, name: 'Rain', age: 22, mail: 'cssrain@domain.com'},
+                {id: 2, name: '皮特', age: 24, mail: 'cssrain@domain.com'},
+                {id: 3, name: '卡卡', age: 20, mail: 'cssrain@domain.com'},
+                {id: 4, name: '戏戏', age: 26, mail: 'cssrain@domain.com'},
+                {id: 5, name: '一揪', age: 25, mail: 'cssrain@domain.com'}
+            ]
+        };
+        // 附上模板
+        $("#result1").setTemplateElement("template");
+        // 给模板加载数据
+        $("#result1").processTemplate(data);
+    });
+
+</script>
+
+
+</body>
+</html>

@@ -4,20 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>星宠舍登录页</title>
-  	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
-  	<link rel="stylesheet" type="text/css" href="../layui-v2.5.6/css/layui.css">
-  	<script type="text/javascript" src="../layui-v2.5.6/layui.js"></script>
+    <script src="/static/js/lib/jquery.js"></script>
+    <script src="/static/js/lib/jquery-ui.min.js"></script>
 </head>
 <body>
 <div class="content content-nav-base  login-content">
     <div style="float: left;">
-      <img style="width: 300px;margin:10px" src="static/img/star_logo.png" alt="">
+      <img style="width: 300px;margin:10px" src="/static/img/pet/star_logo.png" alt="">
     </div>
     <div class="register-bg">
       <div class="register-cont w1200">
         <div class="form-box">
           <form class="layui-form" action="">
-           
+           aaaaaaaaaaaaaaaaaaaaaaaaaa
           </form>
         </div>
       </div>
@@ -27,6 +26,19 @@
 </body>
 </html>
 <script type="text/javascript"> 
-
+    $(function () {
+        alert("a")
+        $.ajax({
+            type: 'POST',
+            data:{user_id:"1"},
+            url: 'http://127.0.0.1:8081/hello',
+            success: function (data) {
+                alert("1")
+            },
+            error:function(){
+                alert("2")
+            }
+        });
+    })
 
 </script>
