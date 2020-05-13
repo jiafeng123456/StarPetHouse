@@ -4,41 +4,106 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>星宠舍登录页</title>
-    <script src="/static/js/lib/jquery.js"></script>
-    <script src="/static/js/lib/jquery-ui.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+  	<link rel="stylesheet" type="text/css" href="../layui-v2.5.6/css/layui.css">
+  	<script type="text/javascript" src="../layui-v2.5.6/layui.js"></script>
 </head>
 <body>
 <div class="content content-nav-base  login-content">
     <div style="float: left;">
-      <img style="width: 300px;margin:10px" src="/static/img/pet/star_logo.png" alt="">
+      <img style="width: 300px;margin:10px" src="../static/img/pet/star_logo.png" alt="">
     </div>
-    <div class="register-bg">
-      <div class="register-cont w1200">
+    <div class="login-bg">
+      <div class="login-cont w1200">
         <div class="form-box">
           <form class="layui-form" action="">
-           aaaaaaaaaaaaaaaaaaaaaaaaaa
+            <legend>星宠舍注册</legend>
+            <div class="layui-form-item">
+              <div class="layui-inline username">
+                <div class="layui-input-inline">
+                  <i class="layui-icon layui-icon-username username-icon"></i>
+                  <input type="text" name="username" id="username" lay-verify="required|username" placeholder="请输入用户" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+              <div class="layui-inline password">
+                <div class="layui-input-inline">
+                  <i class="layui-icon layui-icon-password password-icon"></i>
+                  <input type="password" name="password" id="password" lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+              <div class="layui-inline password">
+                <div class="layui-input-inline">
+                  <i class="layui-icon layui-icon-password password-icon"></i>
+                  <input type="password" name="password" id="password" lay-verify="required|repwd" placeholder="请重新输入" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+            </div>
+            <div class="layui-form-item login-btn">
+              <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="register">注册</button>
+              </div>
+            </div>
           </form>
         </div>
       </div>
     </div>
-</div>
-
-</body>
-</html>
+  </div>
 <script type="text/javascript"> 
-    $(function () {
-        alert("a")
+layui.use(['jquery','form'],function(){
+      var $ = layui.$,form = layui.form;
+
+      form.verify({
+        username: function(value, item){ //value：表单的值、item：表单的DOM对象
+          if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+            return '用户名不能有特殊字符';
+          }
+          if(/(^\_)|(\__)|(\_+$)/.test(value)){
+            return '用户名首尾不能出现下划线\'_\'';
+          }
+          if(/^\d+\d+\d$/.test(value)){
+            return '用户名不能全为数字';
+          }
+        }  
+        //我们既支持上述函数式的方式，也支持下述数组的形式
+        //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+        ,pass: [
+          /^[\S]{6,12}$/
+          ,'密码必须6到12位，且不能出现空格'
+        ]
+        ,repwd:function(value){
+          var pass = $('#password').val();
+          if (value != pass) {
+            return "两次密码不一致";
+          }
+        } 
+      });
+
+
+      //监听提交
+    form.on('submit(register)', function(data){
+        debugger;
         $.ajax({
             type: 'POST',
-            data:{user_id:"1"},
-            url: 'http://127.0.0.1:8081/hello',
+            data:data.field,
+            url: 'http://127.0.0.1:8088/user/register',
             success: function (data) {
-                alert("1")
+              if (data.error_no == "0") {
+                layer.msg("注册成功,请登录！");
+                url = "login.html";
+                window.location.href = url;   
+              }else {
+                layer.msg("注册失败：" + data.error_info);  
+              }
             },
             error:function(){
                 alert("2")
             }
         });
-    })
+        return false;
+    });
+    });
+
 
 </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>steps 演示</title>
+  	<link rel="stylesheet" type="text/css" href="../../layui-v2.5.6/css/layui.css">
+  	<script type="text/javascript" src="../../layui-v2.5.6/layui.js"></script>
+    <link rel="stylesheet" href="../../layui-v2.5.6/extends/steps/style.css">
+</head>
+<body style="padding: 20px">
+<div id="step_demo" class="step-body">
+    <div class="step-header" style="width:80%;overflow: hidden;">
+        <ul>
+            <li>
+                <span class="step-name">生成订单</span>
+            </li>
+            <li>
+                <span class="step-name">确认订单</span>
+            </li>
+            <li>
+                <span class="step-name">订单支付</span>
+            </li>
+            <li>
+                <span class="step-name">支付完成</span>
+            </li>
+        </ul>
+    </div>
+    <div class="step-content">
+        <div class="step-list">生成订单</div>
+        <div class="step-list">确认订单</div>
+        <div class="step-list">订单支付</div>
+        <div class="step-list">支付完成</div>
+        <div class="step-list">完成订单</div>
+    </div>
+
+</div>
+
+<button class="layui-btn layui-btn-radius layui-btn-primary" id="preBtn">上一步</button>
+<button class="layui-btn layui-btn-radius layui-btn-primary" id="nextBtn">下一步</button>
+</body>
+</html>
+
+<script type="text/javascript">
+layui.config({
+    version: 222222
+    ,debug: true
+    ,base: '../../layui-v2.5.6/extends/'
+}).extend({
+    steps:"steps/steps"
+});
+	/*
+ steps组件
+ */
+layui.use(['jquery', 'steps'], function(){
+
+    var $ = layui.$;
+
+    var $step= $("#step_demo").step();
+
+    $("#preBtn").click(function(event) {
+        $step.preStep();//上一步
+    });
+    $("#nextBtn").click(function(event) {
+        $step.nextStep();//下一步
+    });
+    $("#goBtn").click(function(event) {
+        $step.goStep(3);//到指定步
+    });
+});
+
+</script>

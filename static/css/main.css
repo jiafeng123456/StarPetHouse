@@ -118,8 +118,8 @@ i{font-style: normal;}
 .login-content .login-bg .login-cont .layui-input-inline .username-icon{position: absolute; top: 8px; left: 10px; color: #d3d3d3; font-size: 20px;}
 .login-content .login-bg .login-cont .username{margin-bottom: 20px;}
 .login-content .login-bg .login-cont .username .layui-input{padding-left: 40px;}
-.login-content .login-bg .login-cont .veri-code .layui-btn{width: 102px; background: #eeeeee; text-align: center; color: #333; height: 36px; line-height: 36px; display: inline-block; border:none; cursor: pointer; position: absolute; top: 1px; right: 1px; font-size: 12px; padding:0 14px;}
-.login-content .login-bg .login-cont .login-btn .layui-input-block{margin-left: 0; padding-top: 25px;}
+.login-content .login-bg .login-cont .veri-code .layui-btn{width: 102px; background: #eeeeee; text-align: center; color: #333; height: 36px; line-height: 36px; display: inline-block; border:none; cursor: pointer; position: absolute; top: 1px; right: 1px; font-size: 12px;}
+.login-content .login-bg .login-cont .login-btn .layui-input-block{margin-left: 0;}
 .login-content .login-bg .login-cont .login-btn .layui-input-block button{width: 100%; background: #cfb2f6; font-size: 18px;}
 .login-content .login-bg .login-cont .layui-input-inline .password-icon{position: absolute; top: 8px; left: 10px; color: #d3d3d3; font-size: 20px;}
 .login-content .login-bg .login-cont .password{margin-bottom: 20px;}
@@ -132,7 +132,8 @@ i{font-style: normal;}
 .register-content .register-bg .register-cont .form-box{width: 300px; height: 390px; border:1px solid #d9dadc; background: #fff; position: absolute; top: 120px; right: 90px; padding:0 30px;}
 .register-content .register-bg .register-cont .form-box legend{font-size: 20px; color: #323232; text-align: center; padding:50px 0;}
 .register-content .register-bg .register-cont .layui-inline,.register-content .register-bg .register-cont .layui-input-inline{width: 100%; position: relative;}
-/*end-register*/
+.register-layui-btn{width: 102px; background: #eeeeee; text-align: center; color: #333; height: 36px; line-height: 36px; display: inline-block; border:none; cursor: pointer; position: absolute; top: 1px; right: 1px; font-size: 12px; padding:0 14px;}
 
+/*end-register*/
 
 

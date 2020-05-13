@@ -1,16 +1,9 @@
-layui.define(['jquery'], function(exports){ 
-    var $ = layui.jquery;
-    var obj = {
-        ajax: function (url, type, dataType, data, callback) {
-            $.ajax({
-                url: url,
-                type: type,
-                dataType: dataType,
-                data: data,
-                success: callback
-            });
-        }
+layui.define(function(exports){
+    function jquery_cookie(jQuery){
+        // 插件代码区
+
+        return jQuery;
     };
-    //输出接口
-    exports('common', obj);
+
+    exports('jquery_cookie', jquery_cookie);
 });

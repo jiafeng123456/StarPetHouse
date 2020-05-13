@@ -4,14 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>星宠舍登录页</title>
-  	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-  	<link rel="stylesheet" type="text/css" href="/layui-v2.5.6/css/layui.css">
-  	<script type="text/javascript" src="/layui-v2.5.6/layui.js"></script>
+  	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+  	<link rel="stylesheet" type="text/css" href="../layui-v2.5.6/css/layui.css">
+
+  	<script type="text/javascript" src="../layui-v2.5.6/layui.js"></script>
+    <script type="text/javascript" src="../static/js/lib/jquery.js"></script>
+    <script type="text/javascript" src="../static/js/lib/jquery.cookie.js"></script>
 </head>
 <body>
 <div class="content content-nav-base  login-content">
     <div style="float: left;">
-      <img style="width: 300px;margin:10px" src="/static/img/pet/star_logo.png" alt="">
+      <img style="width: 300px;margin:10px" src="../static/img/pet/star_logo.png" alt="">
     </div>
     <div class="login-bg">
       <div class="login-cont w1200">
@@ -34,18 +37,28 @@
             </div>
             <div class="layui-form-item login-btn">
               <div class="layui-input-block">
-                <button id="tijiao" class="layui-btn" lay-submit="" lay-filter="demo1" onclick="return false">登录</button>
+                  <button type="submit" class="layui-btn" lay-submit="" lay-filter="login">登录</button>
               </div>
             </div>
           </form>
+            <div class="layui-form-item login-btn">
+                <div class="layui-input-block">
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="register">注册</button>
+                </div>
+            </div>
         </div>
       </div>
     </div>
   </div>
 <script type="text/javascript"> 
+
 layui.config({
-  base: '/static/js/util' //你存放新模块的目录，注意，不是layui的模块目录
-}).use(['jquery','form'],function(){
+  base: '../layui-v2.5.6/lay/modules/' //假设这是cookie.js所在的目录（本页面的相对路径）
+}).extend({ //设定模块别名
+  cookie: 'cookie'
+});   
+
+layui.use(['layer','jquery','form'],function(){
       var $ = layui.$,form = layui.form;
 
       form.verify({
@@ -67,7 +80,37 @@ layui.config({
           ,'密码必须6到12位，且不能出现空格'
         ] 
       });
-    })
+
+    //监听提交
+    form.on('submit(login)', function(data){
+        debugger;
+        $.ajax({
+            type: 'POST',
+            data:data.field,
+            url: 'http://127.0.0.1:8088/user/login',
+            success: function (data) {
+              if (data.error_no == "0") {
+                var username = $(" #username ").val()
+                url = "index/main.html?username=" + username;
+                window.location.href = url;
+              }else {
+                layer.msg('账号或密码错误，请重新输入！'); 
+              }
+                
+            },
+            error:function(){
+                
+            }
+        });
+        return false;
+    });
+
+    //监听提交
+    form.on('submit(register)', function(data){
+        window.location.href = "register.html"
+        return false;
+    });
+  })
 
 
 </script>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>宠物商店</title>
+  <link rel="stylesheet" type="text/css" href="../../static/css/global.css">
+  <link rel="stylesheet" type="text/css" href="../../layui-v2.5.6/css/layui.css">
+  <script type="text/javascript" src="../../layui-v2.5.6/layui.js"></script>
+  <script src="../../static/js/index/index.js" type="text/javascript"></script>
+  <script src="../../static/js/index/freezeheader.js" type="text/javascript"></script>
+  <script src="../../static/layui-v2.5.6/lay/modules/layer.js" type="text/javascript"></script>
+  <script src="../../static/js/index/sliders.js" type="text/javascript"></script>
+  <script src="../../static/js/index/html5.js" type="text/javascript"></script>
+  <script src="../../static/js/index/article.js" type="text/javascript"></script>
+  <script src="../../static/js/lib/jquery.js"></script>
+  <script type="text/javascript" src="../../static/js/lib/jquery.cookie.js"></script>
+  <script src="../../static/js/lib/jquery-ui.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+<div class="layui-header header">
+    <div class="main">
+        <ul class="layui-nav layui-nav-left" lay-filter="filter">
+            <script id="demo" type="text/html">
+              {{#  layui.each(d.list, function(index, item){ }}
+              <li class="layui-nav-item">
+                <a href="{{ item.url }}"  target="content">{{ item.name }}</a>
+              </li>
+              <!-- <a href="{{ item.url }}" target="content">{{ item.name }}</a> -->
+              {{#  }); }}
+              {{#  if(d.list.length === 0){ }}
+              无数据
+              {{#  } }}
+            </script>
+            <div id="view"></div>
+        </ul>
+        <ul class="layui-nav layui-layout-right layui-nav-right" lay-filter="filter">
+
+            <li class="layui-nav-item">
+                <a href="home.html" target="content">我的主页<span class="layui-badge-dot"></span></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;"><img src="../../static/img/head.jpg" id="headImage" class="layui-nav-img">我</a><span class="layui-nav-more"></span>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" id="modifInfo">修改信息</a></dd>
+                    <dd><a href="javascript:;" id="logOut">退了</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+  <div>
+    <div class="layui-row layui-col-space10">
+      <div class="layui-col-md2">
+      </div>
+      <div class="layui-col-md6">
+        <div id="content">
+          这是列表
+          <div class="layui-row layui-col-space20">
+            <div class="layui-col-md10">
+            </div>
+            <div class="layui-col-md2">
+              <button type="button" id="application" class="layui-btn layui-btn-primary layui-btn-radius">店铺修改</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-md3">
+        <div id="left">
+          这是侧边
+        </div>
+      </div>
+      <div class="layui-col-md1">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  layui.use(['layer','laytpl','jquery'], function(){
+      var $ = layui.jquery;
+      var laytpl = layui.laytpl;
+      var username = getUrlParam("username");
+      debugger
+      $.ajax({
+          type: 'POST',
+          data:{username:username},
+          url: 'http://127.0.0.1:8088/user/getUserMenu',
+          success: function (data) {
+            if (data.error_no == "0") {
+                var getTpl = demo.innerHTML,
+                view = document.getElementById('view');
+                laytpl(getTpl).render(data, function(html) {
+                  view.innerHTML = html;
+                });
+                $("#headImage").attr("src",data.image);
+                $("#modifInfo").attr("href","../person/modifUserInfo.html?username=" + username);
+                $("#logOut").attr("href","../login.html");
+              }
+              
+          },
+          error:function(){
+              url = "../login.html";
+                window.location.href = url; 
+          }
+      });
+
+      $("#application").click(function(event) {
+        /* Act on the event */
+          url = "modifyPetStore.html?username=" + username + "&op_type=1";
+          window.location.href = url;
+      });
+        
+
+    function getUrlParam(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+      var r = window.location.search.substr(1).match(reg); //匹配目标参数
+      if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+  });
+</script>
+
+
+</body>
+</html>
